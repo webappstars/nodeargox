@@ -334,7 +334,6 @@ download_agent() {
     wget \${URL}
     unzip -qod ./ nezha-agent_linux_amd64.zip
     rm -f nezha-agent_linux_amd64.zip
-    chmod 775 nezha-agent
   fi
 }
 
