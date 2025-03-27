@@ -424,7 +424,6 @@ module.exports = {
       {
           name: 'web',
           script: '/app/web.js run',
-          args: "-c /app/config.json",
           out_file: "/dev/null",
           error_file: "/dev/null"
       },
