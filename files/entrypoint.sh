@@ -169,7 +169,6 @@ generate_config() {
       },
       "streamSettings": {
         "network": "xhttp",
-        "security": "none",
         "xhttpSettings": {
           "mode": "auto",
           "path": "/${WSPATH}-xhttp"
