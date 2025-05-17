@@ -21,52 +21,24 @@ generate_config() {
       "settings": {
         "clients": [
           {
-            "id": "your-uuid-here",
+            "id": "${UUID}",
             "flow": "xtls-rprx-vision"
           }
         ],
         "decryption": "none",
         "fallbacks": [
-          {
-            "dest": 3001
-          },
-          {
-            "path": "/vless-ws",
-            "dest": 3002
-          },
-          {
-            "path": "/vmess-ws",
-            "dest": 3003
-          },
-          {
-            "path": "/trojan-ws",
-            "dest": 3004
-          },
-          {
-            "path": "/ss-ws",
-            "dest": 3005
-          },
-          {
-            "path": "/xhttp",
-            "dest": 3006
-          }
+          { "dest": 3001 },
+          { "path": "/${WSPATH}-vless", "dest": 3002 },
+          { "path": "/${WSPATH}-vmess", "dest": 3003 },
+          { "path": "/${WSPATH}-trojan", "dest": 3004 },
+          { "path": "/${WSPATH}-shadowsocks", "dest": 3005 },
+          { "path": "/${WSPATH}-xhttp", "dest": 3006 }
         ]
       },
       "streamSettings": {
-        "network": "tcp",
-        "security": "xtls",
-        "xtlsSettings": {
-          "alpn": ["http/1.1"],
-          "certificates": [
-            {
-              "certificateFile": "/path/to/cert.pem",
-              "keyFile": "/path/to/key.pem"
-            }
-          ]
-        }
+        "network": "tcp"
       }
     },
-
     {
       "port": 3001,
       "listen": "127.0.0.1",
@@ -74,7 +46,7 @@ generate_config() {
       "settings": {
         "clients": [
           {
-            "id": "your-uuid-here"
+            "id": "${UUID}"
           }
         ],
         "decryption": "none"
@@ -84,7 +56,6 @@ generate_config() {
         "security": "none"
       }
     },
-
     {
       "port": 3002,
       "listen": "127.0.0.1",
@@ -92,7 +63,8 @@ generate_config() {
       "settings": {
         "clients": [
           {
-            "id": "your-uuid-here"
+            "id": "${UUID}",
+            "level": 0
           }
         ],
         "decryption": "none"
@@ -101,7 +73,7 @@ generate_config() {
         "network": "ws",
         "security": "none",
         "wsSettings": {
-          "path": "/vless-ws"
+          "path": "/${WSPATH}-vless"
         }
       },
       "sniffing": {
@@ -110,7 +82,6 @@ generate_config() {
         "metadataOnly": false
       }
     },
-
     {
       "port": 3003,
       "listen": "127.0.0.1",
@@ -118,7 +89,7 @@ generate_config() {
       "settings": {
         "clients": [
           {
-            "id": "your-uuid-here",
+            "id": "${UUID}",
             "alterId": 0
           }
         ]
@@ -126,7 +97,7 @@ generate_config() {
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/vmess-ws"
+          "path": "/${WSPATH}-vmess"
         }
       },
       "sniffing": {
@@ -135,7 +106,6 @@ generate_config() {
         "metadataOnly": false
       }
     },
-
     {
       "port": 3004,
       "listen": "127.0.0.1",
@@ -143,7 +113,7 @@ generate_config() {
       "settings": {
         "clients": [
           {
-            "password": "your-uuid-here"
+            "password": "${UUID}"
           }
         ]
       },
@@ -151,7 +121,7 @@ generate_config() {
         "network": "ws",
         "security": "none",
         "wsSettings": {
-          "path": "/trojan-ws"
+          "path": "/${WSPATH}-trojan"
         }
       },
       "sniffing": {
@@ -160,7 +130,6 @@ generate_config() {
         "metadataOnly": false
       }
     },
-
     {
       "port": 3005,
       "listen": "127.0.0.1",
@@ -169,7 +138,7 @@ generate_config() {
         "clients": [
           {
             "method": "chacha20-ietf-poly1305",
-            "password": "your-uuid-here"
+            "password": "${UUID}"
           }
         ],
         "decryption": "none"
@@ -177,7 +146,7 @@ generate_config() {
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/ss-ws"
+          "path": "/${WSPATH}-shadowsocks"
         }
       },
       "sniffing": {
@@ -186,7 +155,6 @@ generate_config() {
         "metadataOnly": false
       }
     },
-
     {
       "port": 3006,
       "listen": "127.0.0.1",
@@ -194,27 +162,30 @@ generate_config() {
       "settings": {
         "clients": [
           {
-            "id": "your-uuid-here"
+            "id": "${UUID}"
           }
         ],
         "decryption": "none"
       },
       "streamSettings": {
-        "network": "xhttp",
+        "network": "tcp",
+        "security": "none",
         "xhttpSettings": {
-          "mode": "stream-one",
-          "path": "/xhttp"
+          "path": "/${WSPATH}-xhttp"
         }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"],
+        "metadataOnly": false
       }
     }
   ],
-
   "dns": {
     "servers": [
       "https+local://8.8.8.8/dns-query"
     ]
   },
-
   "outbounds": [
     {
       "protocol": "freedom"
@@ -231,7 +202,10 @@ generate_config() {
         "peers": [
           {
             "publicKey": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
-            "allowedIPs": ["0.0.0.0/0", "::/0"],
+            "allowedIPs": [
+              "0.0.0.0/0",
+              "::/0"
+            ],
             "endpoint": "162.159.193.10:2408"
           }
         ],
@@ -240,13 +214,15 @@ generate_config() {
       }
     }
   ],
-
   "routing": {
     "domainStrategy": "AsIs",
     "rules": [
       {
         "type": "field",
-        "domain": ["domain:openai.com", "domain:ai.com"],
+        "domain": [
+          "domain:openai.com",
+          "domain:ai.com"
+        ],
         "outboundTag": "WARP"
       }
     ]
