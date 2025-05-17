@@ -176,7 +176,7 @@ generate_config() {
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls"],
+        "destOverride": ["h2", "h3","http","tls"],
         "metadataOnly": false
       }
     }
