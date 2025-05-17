@@ -7,7 +7,7 @@ WEB_USERNAME=${WEB_USERNAME:-'admin'}
 WEB_PASSWORD=${WEB_PASSWORD:-'password'}
 
 generate_config() {
-  cat > config.json << EOF
+  cat > config.jsonc << EOF
 {
   "log": {
     "access": "/dev/null",
@@ -27,18 +27,36 @@ generate_config() {
         ],
         "decryption": "none",
         "fallbacks": [
-          { "dest": 3001 },
-          { "path": "/${WSPATH}-vless", "dest": 3002 },
-          { "path": "/${WSPATH}-vmess", "dest": 3003 },
-          { "path": "/${WSPATH}-trojan", "dest": 3004 },
-          { "path": "/${WSPATH}-shadowsocks", "dest": 3005 },
-          { "path": "/${WSPATH}-xhttp", "dest": 3006 }
+          {
+            "dest": 3001
+          },
+          {
+            "path": "/${WSPATH}-vless",
+            "dest": 3002
+          },
+          {
+            "path": "/${WSPATH}-vmess",
+            "dest": 3003
+          },
+          {
+            "path": "/${WSPATH}-trojan",
+            "dest": 3004
+          },
+          {
+            "path": "/${WSPATH}-shadowsocks",
+            "dest": 3005
+          },
+          {
+            "path": "/${WSPATH}-xhttp",
+            "dest": 3006
+          }
         ]
       },
       "streamSettings": {
-        "network": "tcp"
-      }
-    },
+        "network": "tcp",
+        "alpn": ["h2", "h3"，"http/1.1"]
+        }
+        },
     {
       "port": 3001,
       "listen": "127.0.0.1",
@@ -168,16 +186,10 @@ generate_config() {
         "decryption": "none"
       },
       "streamSettings": {
-        "network": "xhttp",
-        "xhttpSettings": {
-          "mode": "auto",
+        "network": "tcp",
+        "httpSettings": {
           "path": "/${WSPATH}-xhttp"
         }
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": ["h2", "h3","http","tls"],
-        "metadataOnly": false
       }
     }
   ],
@@ -202,10 +214,7 @@ generate_config() {
         "peers": [
           {
             "publicKey": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
-            "allowedIPs": [
-              "0.0.0.0/0",
-              "::/0"
-            ],
+            "allowedIPs": ["0.0.0.0/0", "::/0"],
             "endpoint": "162.159.193.10:2408"
           }
         ],
@@ -228,7 +237,6 @@ generate_config() {
     ]
   }
 }
-
 EOF
 }
 
