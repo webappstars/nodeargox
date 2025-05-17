@@ -54,7 +54,7 @@ generate_config() {
       },
       "streamSettings": {
         "network": "tcp",
-        "alpn": ["h2", "h3"，"http/1.1"]
+        "alpn": ["h2", "h3", "http/1.1"]
         }
         },
     {
