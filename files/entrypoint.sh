@@ -186,8 +186,9 @@ generate_config() {
         "decryption": "none"
       },
       "streamSettings": {
-        "network": "tcp",
-        "httpSettings": {
+        "network": "xhttp",
+        "xhttpSettings": {
+          "mode": "auto",
           "path": "/${WSPATH}-xhttp"
         }
       }
