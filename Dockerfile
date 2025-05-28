@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:20.19.2
 EXPOSE 3000
 WORKDIR /app
 COPY files/* /app/
