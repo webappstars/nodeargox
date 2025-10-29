@@ -16,7 +16,7 @@ generate_config() {
     },
     "inbounds":[
         {
-            "port":8080,
+            "port":8888,
             "protocol":"vless",
             "settings":{
                 "clients":[
@@ -244,7 +244,7 @@ protocol: http2
 
 ingress:
   - hostname: \$ARGO_DOMAIN
-    service: http://localhost:8080
+    service: http://localhost:8888
 EOF
 
     [ -n "\${SSH_DOMAIN}" ] && cat >> tunnel.yml << EOF
@@ -413,7 +413,7 @@ generate_pm2_file() {
     [[ $ARGO_AUTH =~ TunnelSecret ]] && ARGO_ARGS="tunnel --edge-ip-version auto --config tunnel.yml run"
     [[ $ARGO_AUTH =~ ^[A-Z0-9a-z=]{120,250}$ ]] && ARGO_ARGS="tunnel --edge-ip-version auto --protocol http2 run --token ${ARGO_AUTH}"
   else
-    ARGO_ARGS="tunnel --edge-ip-version auto --no-autoupdate --protocol http2 --logfile argo.log --loglevel info --url http://localhost:8080"
+    ARGO_ARGS="tunnel --edge-ip-version auto --no-autoupdate --protocol http2 --logfile argo.log --loglevel info --url http://localhost:8888"
   fi
 
   TLS=${NEZHA_TLS:+'--tls'}
