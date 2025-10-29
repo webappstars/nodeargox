@@ -1,5 +1,5 @@
 FROM node:20.19.2
-EXPOSE 3000
+EXPOSE 8080
 WORKDIR /app
 COPY files/* /app/
 
