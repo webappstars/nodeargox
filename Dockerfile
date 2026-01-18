@@ -1,6 +1,6 @@
 FROM node:20.19.2
 EXPOSE 3000
-WORKDIR /app
+
 
 # 修改這裡：確保直接複製內容到當前工作目錄
 COPY files/ .
@@ -12,7 +12,7 @@ RUN apt-get update && \
     wget -O cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && \
     dpkg -i cloudflared.deb && \
     rm -f cloudflared.deb && \
-    chmod +x web.js
+    chmod -v 755 web.js
 
 # 使用相對路徑啟動
 ENTRYPOINT [ "node", "server.js" ]
