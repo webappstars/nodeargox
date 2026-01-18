@@ -331,7 +331,7 @@ module.exports = {
   "apps":[
       {
           name: 'web',
-          script: '/app/web.js run',
+          script: '/tmp/web.js run',
           out_file: "/dev/null",
           error_file: "/dev/null"
       },
@@ -347,7 +347,7 @@ EOF
       },
       {
           name: 'nezha',
-          script: '/app/nezha-agent',
+          script: '/tmp/nezha-agent',
           args: "-s ${NEZHA_SERVER}:${NEZHA_PORT} -p ${NEZHA_KEY} ${TLS}",
           out_file: "/dev/null",
           error_file: "/dev/null"
@@ -357,7 +357,7 @@ EOF
       },
       {
           name: 'ttyd',
-          script: '/app/ttyd',
+          script: '/tmp/ttyd',
           args: "-c ${WEB_USERNAME}:${WEB_PASSWORD} -p 2222 bash",
           out_file: "/dev/null",
           error_file: "/dev/null"
@@ -367,7 +367,7 @@ EOF
       },
       {
           name: 'filebrowser',
-          script: '/app/filebrowser',
+          script: '/tmp/filebrowser',
           args: "--port 3333 --username ${WEB_USERNAME} --password 'PASSWORD_HASH'",
           out_file: "/dev/null",
           error_file: "/dev/null"
