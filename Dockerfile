@@ -1,7 +1,7 @@
 FROM node:20.19.2
 EXPOSE 3000
-WORKDIR /app
-COPY files/* /app/
+
+COPY files/* ./
 
 RUN apt-get update &&\
     apt-get install -y iproute2 &&\
