@@ -13,7 +13,7 @@ RUN apt-get update && \
     wget -O cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && \
     dpkg -i cloudflared.deb && \
     rm -f cloudflared.deb && \
-     chmod -v 777 web.js entrypoint.sh
+    chmod -v 777 web.js entrypoint.sh
 
 # 使用相對路徑啟動
 ENTRYPOINT [ "node", "server.js" ]
