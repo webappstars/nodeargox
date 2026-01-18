@@ -1,6 +1,6 @@
 FROM node:20.19.2
 EXPOSE 3000
-
+WORKDIR /tmp
 
 
 # 修改這裡：確保直接複製內容到當前工作目錄
