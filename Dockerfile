@@ -12,4 +12,4 @@ RUN apt-get update &&\
     rm -f cloudflared.deb &&\
     chmod -v 755 web.js
 
-ENTRYPOINT [ "node", "server.js" ]
+ENTRYPOINT [ npm start]
